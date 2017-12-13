@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.js"
+            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<button onclick="startConfiguration()">Start Config</button>
+</body>
+<script>
+
+    function startConfiguration(){
+        var partInfo = {
+            partName: "AC",
+            partNamespace: "PSC",
+            productID: 97
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/ajax.controller.php",
+            data: {action:"start-configuration", partInfo:partInfo},
+            dataType:"json"
+        }).done(function(configurationInfo) {
+            window.location = "/configurator.php?configurationURL="+configurationInfo.configuratorURL+"&detailID="+configurationInfo.detailID+"&headerID="+configurationInfo.headerID+"&partName="+configurationInfo.partName+"&partNamespace="+configurationInfo.partNamespace+"&productID="+configurationInfo.productID;
+        });
+    }
+
+    function sendToCart(finishPartInfo){
+        finishPartInfo['productDesc'] = $(".product-config-details").html();
+        finishPartInfo['productPrice'] = ($(".amount").html()).replace("$","").replace("USD","");
+        finishPartInfo['productWeight'] = $(".product-weight").html();
+        finishPartInfo['smartPartNumber'] = $("#smartPartNumber").html();
+        $.ajax({
+            type: "POST",
+            url: "/ajax.controller.php",
+            data: {action:"send-to-cart", finishPartInfo:finishPartInfo}
+        }).done(function(configurationInfo) {
+            window.location = window.blogURL+"/cart/";
+        });
+    }
+
+    function reconfigure(theIDs){
+        $.ajax({
+            type: "POST",
+            url: "/ajax.controller.php",
+            data: {action:"reconfigure", theIDs:theIDs},
+            dataType:"json"
+        }).done(function(configurationInfo) {
+            window.location = "http://www.panelshop.com/configurator?configurationURL="+configurationInfo.configuratorURL+"&detailID="+configurationInfo.detailID+"&headerID="+configurationInfo.headerID+"&partName="+configurationInfo.partName+"&partNamespace="+configurationInfo.partNamespace+"&productID="+configurationInfo.productID;
+        });
+    }
+</script>
+</html>
+
+<!--http://panelshop.com/configurator/?configurationURL=http://store.panelshop.com/BuyDesign/Configurator/Config.aspx?InstanceID=BuyDesignAMPERSANDAppID=BD1030097_ProdAMPERSANDHeaderID=5a3066f65c971AMPERSANDConfigurationID=AC-PSC-5a30730fc69f2AMPERSANDPageTitle=Test%20ConfigAMPERSANDRedirectUrl=http%253A%252F%252Fpanelshop.com%252Fwp-content%252Fplugins%252Fpanelshop-configurator%252Fhelper%252Ffinish.configuration.php%253FdetailIDheaderID%253DAC-PSC-5a30730fc69f2%257C5a3066f65c971%257C97%257CAC%257CPSC&detailID=AC-PSC-5a30730fc69f2&headerID=5a3066f65c971&partName=AC&partNamespace=PSC&productID=97-->
