@@ -94,6 +94,7 @@ XML;
 
 
     $soap     = simplexml_load_string($response);
+
     $response = $soap->children('http://schemas.xmlsoap.org/soap/envelope/')->Body->children()->PrepareForInteractiveConfigurationResponse;
     $url      =  str_replace("&amp;","AMPERSAND",str_replace("</PrepareForInteractiveConfigurationResult>","",str_replace("<PrepareForInteractiveConfigurationResult>","",$response->PrepareForInteractiveConfigurationResult->asXML())));
 

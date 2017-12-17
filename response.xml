@@ -1,0 +1,46 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tdci.com/BuyDesign/8.0/Configurator/WebService/" xmlns:tdci="http://schemas.datacontract.org/2004/07/TDCI.Configurator.ServiceContract">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <web:PrepareForInteractiveConfiguration>
+            <web:inputParameters>
+                <tdci:Application>
+                    <tdci:Instance>BuyDesign</tdci:Instance>
+                    <tdci:Name>BD1030097_Prod</tdci:Name>
+                </tdci:Application>
+                <tdci:HeaderDetail>
+                    <tdci:DetailId>AC-PSC-5a31b7cb98509</tdci:DetailId>
+                    <tdci:HeaderId>5a31b7af91504</tdci:HeaderId>
+                </tdci:HeaderDetail>
+                <tdci:IntegrationParameters>
+                    <tdci:IntegrationParameter>
+                        <tdci:IsNull>false</tdci:IsNull>
+                        <tdci:Name>CurrencyCode</tdci:Name>
+                        <tdci:SimpleValue>USD</tdci:SimpleValue>
+                        <tdci:Type>String</tdci:Type>
+                    </tdci:IntegrationParameter>
+                    <tdci:IntegrationParameter>
+                        <tdci:Name>BillTo</tdci:Name>
+                        <tdci:SimpleValue>abc123</tdci:SimpleValue>
+                    </tdci:IntegrationParameter>
+                    <tdci:IntegrationParameter>
+                        <tdci:Name>Quantity</tdci:Name>
+                        <tdci:SimpleValue>1</tdci:SimpleValue>
+                    </tdci:IntegrationParameter>
+                </tdci:IntegrationParameters>
+                <tdci:Mode>InteractiveRuleset</tdci:Mode>
+                <tdci:Part>
+                    <tdci:Name>AC</tdci:Name>
+                    <tdci:Namespace>PSC</tdci:Namespace>
+                </tdci:Part>
+                <tdci:Profile>Default</tdci:Profile>
+                <tdci:SourceHeaderDetail>
+                    <tdci:DetailId>AC-PSC-5a31b7cb98509</tdci:DetailId>
+                    <tdci:HeaderId>5a31b7af91504</tdci:HeaderId>
+                </tdci:SourceHeaderDetail>
+                <tdci:VariantKey></tdci:VariantKey>
+            </web:inputParameters>
+            <web:pageCaption>Test Config</web:pageCaption>
+            <web:redirectUrl>http%3A%2F%2Fpanelshop.com%2Fwp-content%2Fplugins%2Fpanelshop-configurator%2Fhelper%2Ffinish.configuration.php%3FdetailIDheaderID%3DAC-PSC-5a31b7cb98509%7C5a31b7af91504%7C97%7CAC%7CPSC</web:redirectUrl>
+        </web:PrepareForInteractiveConfiguration>
+    </soapenv:Body>
+</soapenv:Envelope>
