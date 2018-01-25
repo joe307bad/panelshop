@@ -113,6 +113,8 @@ function encrypt($value)
 {
     return base64_encode(md5("9V&#{X,9F.u>!)Tg[+%*Wz#U}}[Twf~(m5~$@~R[@)c&<g".$value));
 }
+$encoded = urlencode($rawResponse);
+$redirectURL = "http://ps.local:8080/result.php/?response=$encoded";
 
 echo <<<HTML
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js " ></script>

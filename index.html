@@ -9,49 +9,56 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<input type="text" id="partName" value="AC"><br />
+<input type="text" id="partNameSpace" value="PSC"><br />
+<input type="text" id="productId" value="97"><br />
 <button onclick="startConfiguration()">Start Config</button>
+<hr/>
+<hr/>
+<input type="text" id="reconfigureIds" value=""><br />
+<button onclick="reconfigure()">Reconfigure</button>
 </body>
 <script>
 
-    function startConfiguration(){
+    function startConfiguration() {
         var partInfo = {
-            partName: "AC",
-            partNamespace: "PSC",
-            productID: 97
+            partName: $("#partName").val(), // AC
+            partNamespace: $("#partNameSpace").val(), //"PSC",
+            productID: $("#productId").val() // 97
         };
 
         $.ajax({
             type: "POST",
             url: "/ajax.controller.php",
-            data: {action:"start-configuration", partInfo:partInfo},
-            dataType:"json"
-        }).done(function(configurationInfo) {
-            window.location = "/configurator.php?configurationURL="+configurationInfo.configuratorURL+"&detailID="+configurationInfo.detailID+"&headerID="+configurationInfo.headerID+"&partName="+configurationInfo.partName+"&partNamespace="+configurationInfo.partNamespace+"&productID="+configurationInfo.productID;
+            data: {action: "start-configuration", partInfo: partInfo},
+            dataType: "json"
+        }).done(function (configurationInfo) {
+            window.location = "/configurator.php?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
         });
     }
 
-    function sendToCart(finishPartInfo){
+    function sendToCart(finishPartInfo) {
         finishPartInfo['productDesc'] = $(".product-config-details").html();
-        finishPartInfo['productPrice'] = ($(".amount").html()).replace("$","").replace("USD","");
+        finishPartInfo['productPrice'] = ($(".amount").html()).replace("$", "").replace("USD", "");
         finishPartInfo['productWeight'] = $(".product-weight").html();
         finishPartInfo['smartPartNumber'] = $("#smartPartNumber").html();
         $.ajax({
             type: "POST",
             url: "/ajax.controller.php",
-            data: {action:"send-to-cart", finishPartInfo:finishPartInfo}
-        }).done(function(configurationInfo) {
-            window.location = window.blogURL+"/cart/";
+            data: {action: "send-to-cart", finishPartInfo: finishPartInfo}
+        }).done(function (configurationInfo) {
+            window.location = window.blogURL + "/cart/";
         });
     }
 
-    function reconfigure(theIDs){
+    function reconfigure() {
         $.ajax({
             type: "POST",
             url: "/ajax.controller.php",
-            data: {action:"reconfigure", theIDs:theIDs},
-            dataType:"json"
-        }).done(function(configurationInfo) {
-            window.location = "http://www.panelshop.com/configurator?configurationURL="+configurationInfo.configuratorURL+"&detailID="+configurationInfo.detailID+"&headerID="+configurationInfo.headerID+"&partName="+configurationInfo.partName+"&partNamespace="+configurationInfo.partNamespace+"&productID="+configurationInfo.productID;
+            data: {action: "reconfigure", theIDs: $("#reconfigureIds").val() },
+            dataType: "json"
+        }).done(function (configurationInfo) {
+            window.location = "http://www.panelshop.com/configurator?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
         });
     }
 </script>

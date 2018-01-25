@@ -20,7 +20,7 @@ function startConfiguration($partName, $partNamespace,$productID){
         $redirectURL = urlencode("http://panelshop.com/wp-content/plugins/panelshop-configurator/helper/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
     }
 
-    $redirectURL = urlencode("http://panelshop.com/wp-content/plugins/panelshop-configurator/helper/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
+    $redirectURL = urlencode("http://ps.local:8080/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
 
 
     if($_SERVER['SERVER_NAME']=="panelshop.com"){
@@ -99,7 +99,13 @@ XML;
     $url      =  str_replace("&amp;","AMPERSAND",str_replace("</PrepareForInteractiveConfigurationResult>","",str_replace("<PrepareForInteractiveConfigurationResult>","",$response->PrepareForInteractiveConfigurationResult->asXML())));
 
 
-    return array("configuratorURL"=>$url,"detailID"=>$_SESSION['detailID'],"headerID"=>$_SESSION['headerID'],"partName"=>$partName,"partNamespace"=>$partNamespace,"productID"=>$productID);
+    return array(
+        "configuratorURL"=>$url,
+        "detailID"=>$_SESSION['detailID'],
+        "headerID"=>$_SESSION['headerID'],
+        "partName"=>$partName,
+        "partNamespace"=>$partNamespace,
+        "productID"=>$productID);
 
 
 }

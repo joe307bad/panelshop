@@ -19,11 +19,11 @@ if (isset($_POST['action'])) {
 //            }
 //            break;
 //
-//        case "reconfigure":
-//            $theIDs = $_POST['theIDs'];
-//            if ($configurationInfo=reconfigure($theIDs)) {
-//                echo json_encode($configurationInfo);
-//            }
-//            break;
+        case "reconfigure":
+            $theIDs = $_POST['theIDs'];
+            if ($configurationInfo=reconfigure($theIDs)) {
+                echo json_encode($configurationInfo);
+            }
+            break;
     }
 }
