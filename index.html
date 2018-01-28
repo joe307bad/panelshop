@@ -9,18 +9,22 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<input type="text" id="partName" value="AC"><br />
-<input type="text" id="partNameSpace" value="PSC"><br />
-<input type="text" id="productId" value="97"><br />
+<p>Note: popups must be enabled</p>
+Part Name: <input type="text" id="partName" value="AC"><br/>
+Part Namespace: <input type="text" id="partNameSpace" value="PSC"><br/>
+Product Id: <input type="text" id="productId" value="97"><br/>
 <button onclick="startConfiguration()">Start Config</button>
-<hr/>
-<hr/>
-<input type="text" id="reconfigureIds" value=""><br />
-<button onclick="reconfigure()">Reconfigure</button>
+<br />
+<img style="display:none;" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" />
+<!--<hr/>-->
+<!--<hr/>-->
+<!--<input type="text" id="reconfigureIds" value=""><br/>-->
+<!--<button onclick="reconfigure()">Reconfigure</button>-->
 </body>
 <script>
 
     function startConfiguration() {
+        $("img").show();
         var partInfo = {
             partName: $("#partName").val(), // AC
             partNamespace: $("#partNameSpace").val(), //"PSC",
@@ -33,7 +37,9 @@
             data: {action: "start-configuration", partInfo: partInfo},
             dataType: "json"
         }).done(function (configurationInfo) {
-            window.location = "/configurator.php?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
+            var url = "/configurator.php?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
+            window.open(url, 'Configurator', 'toolbar=no, location = no, status = no, menubar = no, scrollbars = yes, resizable = yes, width = 1000, height = 700')
+            $("img").hide();
         });
     }
 
@@ -55,7 +61,7 @@
         $.ajax({
             type: "POST",
             url: "/ajax.controller.php",
-            data: {action: "reconfigure", theIDs: $("#reconfigureIds").val() },
+            data: {action: "reconfigure", theIDs: $("#reconfigureIds").val()},
             dataType: "json"
         }).done(function (configurationInfo) {
             window.location = "http://www.panelshop.com/configurator?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
