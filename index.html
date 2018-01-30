@@ -22,6 +22,14 @@ Product Id: <input type="text" id="productId" value="97"><br/>
 <!--<button onclick="reconfigure()">Reconfigure</button>-->
 </body>
 <script>
+    var urlParams = getUrlVars();
+
+    if(!$.isEmptyObject(urlParams)){
+        $("#partName").val(urlParams.partName);
+        $("#partNameSpace").val(urlParams.partNameSpace); //"PSC",
+        $("#productId").val(urlParams.productId);
+        startConfiguration();
+    }
 
     function startConfiguration() {
         $("img").show();
@@ -66,6 +74,16 @@ Product Id: <input type="text" id="productId" value="97"><br/>
         }).done(function (configurationInfo) {
             window.location = "http://www.panelshop.com/configurator?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
         });
+    }
+
+    function getUrlVars()
+    {
+        var queries = {};
+        $.each(document.location.search.substr(1).split('&'),function(c,q){
+            var i = q.split('=');
+            queries[i[0].toString()] = i[1].toString();
+        });
+         return queries;
     }
 </script>
 </html>
