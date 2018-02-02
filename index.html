@@ -14,8 +14,8 @@ Part Name: <input type="text" id="partName" value="AC"><br/>
 Part Namespace: <input type="text" id="partNameSpace" value="PSC"><br/>
 Product Id: <input type="text" id="productId" value="97"><br/>
 <button onclick="startConfiguration()">Start Config</button>
-<br />
-<img style="display:none;" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" />
+<br/>
+<img style="display:none;" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif"/>
 <!--<hr/>-->
 <!--<hr/>-->
 <!--<input type="text" id="reconfigureIds" value=""><br/>-->
@@ -24,7 +24,7 @@ Product Id: <input type="text" id="productId" value="97"><br/>
 <script>
     var urlParams = getUrlVars();
 
-    if(!$.isEmptyObject(urlParams)){
+    if (!$.isEmptyObject(urlParams)) {
         $("#partName").val(urlParams.partName);
         $("#partNameSpace").val(urlParams.partNameSpace); //"PSC",
         $("#productId").val(urlParams.productId);
@@ -76,14 +76,16 @@ Product Id: <input type="text" id="productId" value="97"><br/>
         });
     }
 
-    function getUrlVars()
-    {
+    function getUrlVars() {
         var queries = {};
-        $.each(document.location.search.substr(1).split('&'),function(c,q){
+
+        $.each(document.location.search.substr(1).split('&'), function (c, q) {
             var i = q.split('=');
-            queries[i[0].toString()] = i[1].toString();
+            if (i[1]) {
+                queries[i[0].toString()] = i[1].toString();
+            }
         });
-         return queries;
+        return queries;
     }
 </script>
 </html>

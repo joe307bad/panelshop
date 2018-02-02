@@ -113,8 +113,18 @@ function encrypt($value)
 {
     return base64_encode(md5("9V&#{X,9F.u>!)Tg[+%*Wz#U}}[Twf~(m5~$@~R[@)c&<g".$value));
 }
-$encoded = urlencode($rawResponse);
-$redirectURL = "http://ps.local:8080/result.php/?response=$encoded";
+$response = "Description: $description /n Encrypted Price: $price /n Weight: $weight /n Header ID: $detailIDheaderID[1] /n Detail ID: $detailIDheaderID[0] /n Product ID: detailIDheaderID[2] /n Part Name: $detailIDheaderID[3] /n Part Namespace: $detailIDheaderID[4] /n Smart Part Number: $smartPartNumber";
+$encoded = urlencode($response);
+switch($_SERVER['SERVER_NAME']){
+    case "ps.joebad.com":
+        $redirectHost = "http://ps.joebad.com";
+        break;
+    default:
+        $redirectHost = "http://ps.local:8080/";
+        break;
+}
+
+$redirectURL = $redirectHost . "/result.php/?response=$encoded";
 
 echo <<<HTML
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js " ></script>
