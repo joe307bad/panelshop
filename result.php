@@ -20,7 +20,7 @@ $response = urldecode($_GET['response']);
         portalId: '401673',
         formId: '240d8cbc-49fd-443a-b5bf-36e1a021e27b',
         onFormReady($form, ctx){
-            $('textarea[name="message"]').val("<?php echo $response; ?>");
+            $('textarea[name="message"]').val("<?php echo $response; ?>").change();
         }
     });
 </script>
