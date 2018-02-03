@@ -11,7 +11,14 @@ function startConfiguration($partName, $partNamespace,$productID){
     }
 
     $_SESSION['detailID']=$partName."-".$partNamespace."-".uniqid();
-
+    switch($_SERVER['SERVER_NAME']){
+        case "ps.joebad.com":
+            $redirectHost = "http://ps.joebad.com";
+            break;
+        default:
+            $redirectHost = "http://ps.local:8080";
+            break;
+    }
     if($_SERVER['SERVER_NAME']=="panelshop.ybclients.com"){
         $redirectURL = urlencode("http://panelshop.ybclients.com/wp-content/plugins/panelshop-configurator/helper/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
     }else if($_SERVER['SERVER_NAME']=="joebad.dev"){
@@ -20,7 +27,7 @@ function startConfiguration($partName, $partNamespace,$productID){
         $redirectURL = urlencode("http://panelshop.com/wp-content/plugins/panelshop-configurator/helper/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
     }
 
-    $redirectURL = urlencode("http://ps.local:8080/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
+    $redirectURL = urlencode($redirectHost . "/finish.configuration.php?detailIDheaderID={$_SESSION['detailID']}|{$_SESSION['headerID']}|$productID|$partName|$partNamespace");
 
 
     if($_SERVER['SERVER_NAME']=="panelshop.com"){
