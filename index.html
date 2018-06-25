@@ -1,92 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script
-            src="https://code.jquery.com/jquery-1.12.4.js"
-            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-            crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Title</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"
+	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	crossorigin="anonymous"></script>
+<style>
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+	position: absolute;
+	width: 500px;
+	font-size: 50px;
+	margin-left: -250px;
+	text-align: center;
+	left: 50%;
+	top: 50%;
+	margin-top: -120px;
+	font-family: 'Arial';
+	color: #b8b8b8;
+	font-family: 'Arial';
+}
+
+img {
+	margin-top: 50px;
+}
+</style>
 </head>
 <body>
-<p>Note: popups must be enabled</p>
-Part Name: <input type="text" id="partName" value="AC"><br/>
-Part Namespace: <input type="text" id="partNameSpace" value="PSC"><br/>
-Product Id: <input type="text" id="productId" value="97"><br/>
-<button onclick="startConfiguration()">Start Config</button>
-<br/>
-<img style="display:none;" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif"/>
-<!--<hr/>-->
-<!--<hr/>-->
-<!--<input type="text" id="reconfigureIds" value=""><br/>-->
-<!--<button onclick="reconfigure()">Reconfigure</button>-->
+	<h1>
+		Loading Configurator <br /> <img
+			src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" />
+	</h1>
+	<iframe style="display: none; width: 100%; height: 100%;"
+		id="configuratorIframe" src="" /></iframe>
+	<!--<hr/>-->
+	<!--<hr/>-->
+	<!--<input type="text" id="reconfigureIds" value=""><br/>-->
+	<!--<button onclick="reconfigure()">Reconfigure</button>-->
 </body>
 <script>
-    var urlParams = getUrlVars();
+	var urlParams = getUrlVars();
 
-    if (!$.isEmptyObject(urlParams)) {
-        $("#partName").val(urlParams.partName);
-        $("#partNameSpace").val(urlParams.partNameSpace); //"PSC",
-        $("#productId").val(urlParams.productId);
-        startConfiguration();
-    }
+	if (!$.isEmptyObject(urlParams)) {
+		// 		$("#partName").val(urlParams.partName);
+		// 		$("#partNameSpace").val(urlParams.partNameSpace); //"PSC",
+		// 		$("#productId").val(urlParams.productId);
+		startConfiguration(urlParams.partName, urlParams.partNameSpace);
+	}
 
-    function startConfiguration() {
-        $("img").show();
-        var partInfo = {
-            partName: $("#partName").val(), // AC
-            partNamespace: $("#partNameSpace").val(), //"PSC",
-            productID: $("#productId").val() // 97
-        };
+	function startConfiguration(partName, partNameSpace) {
+		$("img").show();
+		var partInfo = {
+			partName : partName, // AC
+			partNamespace : partNameSpace, //"PSC",
+			productID : ''
+		// 97
+		};
 
-        $.ajax({
-            type: "POST",
-            url: "/ajax.controller.php",
-            data: {action: "start-configuration", partInfo: partInfo},
-            dataType: "json"
-        }).done(function (configurationInfo) {
-            var url = "/configurator.php?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
-            window.open(url, 'Configurator', 'toolbar=no, location = no, status = no, menubar = no, scrollbars = yes, resizable = yes, width = 1000, height = 700')
-            $("img").hide();
-        });
-    }
+		$.ajax({
+			type : "POST",
+			url : "/ajax.controller.php",
+			data : {
+				action : "start-configuration",
+				partInfo : partInfo
+			},
+			dataType : "json"
+		}).done(
+				function(configurationInfo) {
+					var url = "/configurator.php?configurationURL="
+							+ configurationInfo.configuratorURL + "&detailID="
+							+ configurationInfo.detailID + "&headerID="
+							+ configurationInfo.headerID + "&partName="
+							+ configurationInfo.partName + "&partNamespace="
+							+ configurationInfo.partNamespace + "&productID="
+							+ configurationInfo.productID;
+					$("#configuratorIframe").attr("src", url);
+					$("#configuratorIframe").show();
+					// 							window
+					// 									.open(
+					// 											url,
+					// 											'Configurator',
+					// 											'toolbar=no, location = no, status = no, menubar = no, scrollbars = yes, resizable = yes, width = 1000, height = 700');
+					$("h1, img").hide();
+				});
+	}
 
-    function sendToCart(finishPartInfo) {
-        finishPartInfo['productDesc'] = $(".product-config-details").html();
-        finishPartInfo['productPrice'] = ($(".amount").html()).replace("$", "").replace("USD", "");
-        finishPartInfo['productWeight'] = $(".product-weight").html();
-        finishPartInfo['smartPartNumber'] = $("#smartPartNumber").html();
-        $.ajax({
-            type: "POST",
-            url: "/ajax.controller.php",
-            data: {action: "send-to-cart", finishPartInfo: finishPartInfo}
-        }).done(function (configurationInfo) {
-            window.location = window.blogURL + "/cart/";
-        });
-    }
+	function sendToCart(finishPartInfo) {
+		finishPartInfo['productDesc'] = $(".product-config-details").html();
+		finishPartInfo['productPrice'] = ($(".amount").html()).replace("$", "")
+				.replace("USD", "");
+		finishPartInfo['productWeight'] = $(".product-weight").html();
+		finishPartInfo['smartPartNumber'] = $("#smartPartNumber").html();
+		$.ajax({
+			type : "POST",
+			url : "/ajax.controller.php",
+			data : {
+				action : "send-to-cart",
+				finishPartInfo : finishPartInfo
+			}
+		}).done(function(configurationInfo) {
+			window.location = window.blogURL + "/cart/";
+		});
+	}
 
-    function reconfigure() {
-        $.ajax({
-            type: "POST",
-            url: "/ajax.controller.php",
-            data: {action: "reconfigure", theIDs: $("#reconfigureIds").val()},
-            dataType: "json"
-        }).done(function (configurationInfo) {
-            window.location = "http://www.panelshop.com/configurator?configurationURL=" + configurationInfo.configuratorURL + "&detailID=" + configurationInfo.detailID + "&headerID=" + configurationInfo.headerID + "&partName=" + configurationInfo.partName + "&partNamespace=" + configurationInfo.partNamespace + "&productID=" + configurationInfo.productID;
-        });
-    }
+	function reconfigure() {
+		$
+				.ajax({
+					type : "POST",
+					url : "/ajax.controller.php",
+					data : {
+						action : "reconfigure",
+						theIDs : $("#reconfigureIds").val()
+					},
+					dataType : "json"
+				})
+				.done(
+						function(configurationInfo) {
+							window.location = "http://www.panelshop.com/configurator?configurationURL="
+									+ configurationInfo.configuratorURL
+									+ "&detailID="
+									+ configurationInfo.detailID
+									+ "&headerID="
+									+ configurationInfo.headerID
+									+ "&partName="
+									+ configurationInfo.partName
+									+ "&partNamespace="
+									+ configurationInfo.partNamespace
+									+ "&productID="
+									+ configurationInfo.productID;
+						});
+	}
 
-    function getUrlVars() {
-        var queries = {};
+	function getUrlVars() {
+		var queries = {};
 
-        $.each(document.location.search.substr(1).split('&'), function (c, q) {
-            var i = q.split('=');
-            if (i[1]) {
-                queries[i[0].toString()] = i[1].toString();
-            }
-        });
-        return queries;
-    }
+		$.each(document.location.search.substr(1).split('&'), function(c, q) {
+			var i = q.split('=');
+			if (i[1]) {
+				queries[i[0].toString()] = i[1].toString();
+			}
+		});
+		return queries;
+	}
 </script>
 </html>
 
