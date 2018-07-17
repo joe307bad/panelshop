@@ -113,7 +113,9 @@ function encrypt($value)
 {
     return base64_encode(md5("9V&#{X,9F.u>!)Tg[+%*Wz#U}}[Twf~(m5~$@~R[@)c&<g".$value));
 }
-$response = "Description\\n--------\\n$description\\n\\nEncrypted Price\\n--------\\n$price\\n\\nWeight\\n--------\\n$weight\\n\\nHeader ID\\n--------\\n$detailIDheaderID[1]\\n\\nDetail ID\\n--------\\n$detailIDheaderID[0]\\n\\nProduct ID\\n--------\\n$detailIDheaderID[2]\\n\\nPart Name\\n--------\\n$detailIDheaderID[3]\\n\\nPart Namespace\\n--------\\n$detailIDheaderID[4]";
+$spNumber = explode('%', $description);
+//$response = "Description\\n--------\\n$description\\n\\nEncrypted Price\\n--------\\n$price\\n\\nWeight\\n--------\\n$weight\\n\\nHeader ID\\n--------\\n$detailIDheaderID[1]\\n\\nDetail ID\\n--------\\n$detailIDheaderID[0]\\n\\nProduct ID\\n--------\\n$detailIDheaderID[2]\\n\\nPart Name\\n--------\\n$detailIDheaderID[3]\\n\\nPart Namespace\\n--------\\n$detailIDheaderID[4]";
+$response = "Smart Part Number\\n--------\\n$spNumber[0]\\n\\n\\nAdditional Requirements or Details\\n--------";
 $encoded = urlencode($response);
 switch($_SERVER['SERVER_NAME']){
     case "ps.joebad.com":
@@ -123,9 +125,9 @@ switch($_SERVER['SERVER_NAME']){
         $redirectHost = "http://ps.local:8080";
         break;
 }
-$response = str_replace("<BR>", "\\n", $response);
+$response = str_replace("<BR>", "\\n", $encoded);
 
-$redirectURL = $redirectHost . "/result.php/?response=$encoded";
+$redirectURL = "http://panelshop.com/new-configurator/result.php/?response=$response";
 
 echo <<<HTML
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js " ></script>
