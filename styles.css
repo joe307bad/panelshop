@@ -1,0 +1,303 @@
+/* ==========================================================================
+   6. FORMS                                        
+   ========================================================================== */
+
+
+/* =============== Global Form Styles =============== */
+
+/* Form Field */
+.hs-form-field {}
+
+/* Descriptions */
+.hs-field-desc {}
+
+/* Labels and Legends */
+label {}
+.hs-form-field > label {
+  font-size: 14px;
+  display: block;
+  margin: 0 0 5px;
+}
+
+/* One Line Inputs */
+input[type="text"],
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"],
+input[type="file"],
+textarea,
+select {
+  border: 1px solid #bbb;
+  font-size: 14px;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: #999;
+  width: 100%;
+  padding: 16px;
+  background-color: rgba(0,0,0,0);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(43,44,42,0.53);
+  font-family:Arial;
+  margin:0 0 15px;
+  outline:none;
+  max-width:500px;
+  display:block;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus, 
+input[type="datetime"]:focus, 
+input[type="datetime-local"]:focus, 
+input[type="date"]:focus, 
+input[type="month"]:focus, 
+input[type="time"]:focus, 
+input[type="week"]:focus, 
+input[type="number"]:focus, 
+input[type="email"]:focus, 
+input[type="url"]:focus, 
+input[type="search"]:focus, 
+input[type="tel"]:focus, 
+input[type="color"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+  color: #3e3e3e;
+}
+ul.hs-error-msgs.inputs-list {
+  padding: 0;
+  list-style: none;
+  line-height: 26px;
+  font-family: "Open Sans",Arial,sans-serif;
+  font-size: 14px;
+  color: red;
+}
+
+/* Separate Styles for Multiple Line Inputs */
+textarea {}
+textarea:focus {}
+
+/* Separate Styles for Drop Downs */
+select {}
+select:focus {}
+
+/* Multiple Selection Inputs */
+form.hs-form .hs-form-field ul.inputs-list {
+  list-style: none;
+  padding: 0;
+}
+form.hs-form .hs-form-field ul.inputs-list li input {}
+input[type="radio"] {}
+input[type="checkbox"] {}
+
+/* Required */
+input:focus:required:invalid, 
+textarea:focus:required:invalid, 
+select:focus:required:invalid {}
+
+input:focus:required:invalid:focus, 
+textarea:focus:required:invalid:focus, 
+select:focus:required:invalid:focus {}
+
+/* Error */
+.hs-error-msgs label{}
+
+/* Placeholder Text */
+::-webkit-input-placeholder {} /* Webkit Browsers */
+:-moz-placeholder {} /* Firefox 18- */
+::-moz-placeholder {} /* Firefox 19+ */
+:-ms-input-placeholder {} /* IE10 */
+
+
+/* =============== Multi Column Form =============== */
+
+.hs-form fieldset.form-columns-1 {}
+.hs-form fieldset.form-columns-1 .hs-form-field {}
+.hs-form fieldset.form-columns-2 {}
+.hs-form fieldset.form-columns-2 .hs-form-field {}
+.hs-form fieldset.form-columns-3 {}
+.hs-form fieldset.form-columns-3 .hs-form-field {}
+
+/* Multiple Selection Inputs */
+form.hs-form .hs-form-field ul.inputs-list li input {}
+input[type="radio"] {}
+input[type="checkbox"] {}
+form.hs-form fieldset { max-width: none; }
+form.hs-form fieldset .hs-form-field { padding: 0 10px 0 0; }
+form.hs-form fieldset[class*="form-columns"] .input { margin-right: 0; }
+form.hs-form fieldset[class*="form-columns"] .hs-input { width: 100%; }
+form.hs-form fieldset[class*="form-columns"] .hs-input[type="checkbox"] { width: auto; }
+form.hs-form fieldset.form-columns-3 .hs-form-field { width: 33.33%; }
+
+@media (max-width: 400px) {
+  form.hs-form fieldset .hs-form-field { padding: 0; }
+  form.hs-form fieldset.form-columns-3 .hs-form-field,
+  form.hs-form .form-columns-2 .hs-form-field .hs-input, 
+  form.hs-form .form-columns-3 .hs-form-field .hs-input { width: 100%; }
+  form.hs-form .form-columns-3 .hs-form-field .hs-input[type="checkbox"] { width: auto; }
+}
+
+
+/* =============== Blog Comment Form =============== */
+
+/* Label */
+#comment-form .hs-form-field > label {}
+#comment-form label {}
+
+/* Inputs */
+#comment-form input[type="text"] {}
+#comment-form input[type="text"]:focus {}
+
+#comment-form textarea {}
+#comment-form textarea:focus {}
+
+#comment-form input[type="checkbox"] {}
+
+
+/* =============== Blog Subscription Form =============== */
+
+/* Label */
+#hs_form_target_blog_subscription .hs-form-field > label {}
+#hs_form_target_blog_subscription label {}
+
+/* Inputs */
+#hs_form_target_blog_subscription input[type="email"] {}
+#hs_form_target_blog_subscription input[type="email"]:focus {}
+#hs_form_target_blog_subscription input[type="radio"], #hs_form_target_blog_subscription input[type="checkbox"] {
+width: auto;
+margin-right: 10px;
+}
+
+/* =============== Center Form =============== */
+
+/* To center the form within its module and applying a max-width */
+form.hs-form,
+.center-form .hs_cos_wrapper .form-title {
+max-width: 1000px;
+display: block;
+margin: 0 auto;
+}
+
+/* To center the form title within a form module */
+.center-form .hs_cos_wrapper .form-title {
+text-align: center;
+}
+
+/* To center the form submit button */
+.center-form .hs_submit {
+    text-align: center;
+}
+
+.custom-form-input .hs-form fieldset {
+max-width: none!important;
+}
+
+.custom-select input[type="text"],
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"],
+input[type="file"],
+textarea,
+select
+{
+  max-width:100%;
+  
+}
+
+/* =============== Google Search Form =============== */
+
+/* Label */
+.widget-type-google_search label {}
+
+/* Input */
+.widget-type-google_search input[type="text"] {}
+.widget-type-google_search input[type="focus"] {}
+
+
+/* ==========================================================================
+   7. BUTTONS                                        
+   ========================================================================== */
+
+
+/* =============== All Global Buttons (Excluding CTAs) =============== */
+
+.hs-button.primary,
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer;
+  -webkit-appearance: none;
+  text-decoration: none ;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.7em;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  transition: all .2s;
+  position: relative;
+  padding: .3em 1em;
+  border: 2px solid;
+  color: #ffffff;
+  border-color: #09aa06;
+  border-radius: 0px;
+  letter-spacing: 2px;
+  font-family: 'Oswald',Helvetica,Arial,Lucida,sans-serif;
+  text-transform: uppercase;
+  background-color: #09aa06;
+  display: inline-block;
+  white-space:normal;
+}
+
+.hs-button.primary:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  color: #09aa06;
+  background-color: rgba(0,0,0,0);
+  border-color: #09aa06;
+  border-radius: 0px;
+  letter-spacing: 2px;
+  background-image: url(//cdn2.hubspot.net/hubfs/401673/PanelShop_August2018/Images/btn-icon-transparent.png);
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: 94% center;
+  padding-right: 35px;
+}
+
+.hs-button.primary:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus {}
+
+
+
+
+/* =============== Form Module Button =============== */
+
+.hs_cos_wrapper_type_form .hs-button.primary.large {}
+.hs_cos_wrapper_type_form .hs-button.primary.large:hover {}
+.hs_cos_wrapper_type_form .hs-button.primary.large:focus {}
+
